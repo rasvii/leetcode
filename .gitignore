@@ -1,1 +1,4 @@
+src/solutions/Solution.class
+*.xml
+bin/
 *.class
