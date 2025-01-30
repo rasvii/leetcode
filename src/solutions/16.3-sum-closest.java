@@ -1,3 +1,4 @@
+package solutions;
 /*
  * @lc app=leetcode id=16 lang=java
  *
@@ -20,16 +21,16 @@ class Solution {
             while (j < k) {
                 int sum = nums[i] + nums[j] + nums[k];
 
-                if (sum == target)
-                    return target;
-
                 if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
                     closestSum = sum;
+
                 }
                 if (sum < target)
                     j++;
-                else
+                else if (sum > target)
                     k--;
+                else
+                    return sum;
             }
         }
 
