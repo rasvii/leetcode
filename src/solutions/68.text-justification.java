@@ -130,7 +130,7 @@ class Solution {
         return result;
     }
 
-    public String justify(List<String> wordGroup, int maxWidth, int currLetterCount) {
+    private String justify(List<String> wordGroup, int maxWidth, int currLetterCount) {
         StringBuffer str = new StringBuffer();
         int totalSpace = maxWidth - currLetterCount;
 
@@ -152,7 +152,7 @@ class Solution {
         return str.toString();
     }
 
-    public String spaces(int length) {
+    private String spaces(int length) {
         return new String(new char[length]).replace('\0', ' ');
     }
 }
