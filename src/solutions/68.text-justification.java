@@ -99,54 +99,55 @@ class Solution {
 
         List<String> result = new ArrayList<>();
 
-        List<String> wordsInALine = new ArrayList<>();
+        List<String> wordsPerLine = new ArrayList<>();
         int currLineLength = 0;
 
         for (int i = 0; i < words.length; i++) {
 
-            if (currLineLength + words[i].length() + wordsInALine.size() <= maxWidth) {
-                wordsInALine.add(words[i]);
+            // Adding the size of wordsPerLine to get the number of spaces. There must be 1
+            // space if line contains 2 words. 2 spaces if 3 words, and so on.
+            if (currLineLength + words[i].length() + wordsPerLine.size() <= maxWidth) {
+                wordsPerLine.add(words[i]);
                 currLineLength += words[i].length();
 
             } else {
-                result.add(justify(wordsInALine, maxWidth, currLineLength));
+                result.add(justify(wordsPerLine, maxWidth, currLineLength));
 
                 currLineLength = words[i].length();
-                wordsInALine.clear();
-                wordsInALine.add(words[i]);
+                wordsPerLine.clear();
+                wordsPerLine.add(words[i]);
             }
         }
 
-        // Add the last group if not empty
-        if (!wordsInALine.isEmpty()) {
+        // Justify the last group
+        if (!wordsPerLine.isEmpty()) {
             StringBuffer str = new StringBuffer();
-            for (int i = 0; i < wordsInALine.size() - 1; i++) {
-                str.append(wordsInALine.get(i)).append(" ");
+            for (int i = 0; i < wordsPerLine.size() - 1; i++) {
+                str.append(wordsPerLine.get(i)).append(" ");
             }
-            str.append(wordsInALine.get(wordsInALine.size() - 1)).append(spaces(maxWidth - str.length()));
+            str.append(wordsPerLine.get(wordsPerLine.size() - 1)).append(spaces(maxWidth - str.length()));
             result.add(str.toString());
         }
 
         return result;
     }
 
-    private String justify(List<String> wordGroup, int maxWidth, int currLetterCount) {
+    private String justify(List<String> wordsPerLine, int maxWidth, int currLetterCount) {
         StringBuffer str = new StringBuffer();
         int totalSpace = maxWidth - currLetterCount;
 
-        if (wordGroup.size() == 1) {
-            str.append(wordGroup.get(0)).append(spaces(totalSpace));
+        if (wordsPerLine.size() == 1) {
+            str.append(wordsPerLine.get(0)).append(spaces(totalSpace));
         } else {
-            int equalSpaces = totalSpace / (wordGroup.size() - 1);
-            int spilloverSpaces = totalSpace % (wordGroup.size() - 1);
+            int equalSpaces = totalSpace / (wordsPerLine.size() - 1);
+            int spilloverSpaces = totalSpace % (wordsPerLine.size() - 1);
             String spaces = spaces(equalSpaces);
 
-            for (int j = 0; j < wordGroup.size() - 1; j++) {
-                str.append(wordGroup.get(j)).append(spaces).append(spilloverSpaces-- > 0 ? " " : "");
-
+            for (int j = 0; j < wordsPerLine.size() - 1; j++) {
+                str.append(wordsPerLine.get(j)).append(spaces).append(spilloverSpaces-- > 0 ? " " : "");
             }
 
-            str.append(wordGroup.get(wordGroup.size() - 1));
+            str.append(wordsPerLine.get(wordsPerLine.size() - 1));
         }
 
         return str.toString();
