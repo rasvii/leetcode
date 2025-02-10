@@ -1,3 +1,4 @@
+package solutions;
 /*
  * @lc app=leetcode id=290 lang=java
  *
