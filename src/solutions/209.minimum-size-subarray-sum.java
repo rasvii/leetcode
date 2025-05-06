@@ -9,18 +9,21 @@ package solutions;
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
 
-        int i = 0, j = 0, sum = 0, min = Integer.MAX_VALUE;
-
-        while (i < nums.length) {
-            sum += nums[i++];
-
-            while (sum >= target) {
-                min = Math.min(min, i - j);
-                sum -= nums[j++];
+        int minSize = Integer.MAX_VALUE, sum = 0, left = 0, right = 0;
+        
+        while(right < nums.length){
+            sum += nums[right];
+            right++;
+            
+            while(sum >= target){
+                minSize = Math.min(minSize, right - left);
+                sum -= nums[left];
+                left++;
             }
         }
-
-        return min == Integer.MAX_VALUE ? 0 : min;
+        
+        
+        return minSize == Integer.MAX_VALUE ? 0 : minSize;
 
     }
 }
