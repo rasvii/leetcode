@@ -10,24 +10,20 @@ class Solution {
     // First LC medium that I solved totally by myself. No solution look-ups!!!
     // Plus the runtime beats 100% java solutions and memory usage beats 83.47%!!
     public int maxProfit(int[] prices) {
-
-        int totalProfit = 0;
         int leastSoFar = Integer.MAX_VALUE;
+        int totalProfit = 0;
 
-        for (int i = 0; i < prices.length; i++) {
-            leastSoFar = Math.min(prices[i], leastSoFar);
-            int currentProfit = prices[i] - leastSoFar;
+        for(int n : prices){
+            leastSoFar = Math.min(n, leastSoFar);
+            int currProfit = n - leastSoFar;
 
-            if (currentProfit <= 0) {
-                currentProfit = 0;
-            } else {
-                leastSoFar = prices[i];
-                totalProfit += currentProfit;
+            if(currProfit > 0){
+                totalProfit = totalProfit + currProfit;
+                leastSoFar = n;
             }
         }
-
+        
         return totalProfit;
-
     }
 }
 // @lc code=end

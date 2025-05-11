@@ -12,19 +12,21 @@ import java.util.Map;
 
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> numberMap = new HashMap<>();
 
-        for (int i = 0; i < nums.length; i++) {
-            int subtract = target - nums[i];
+        HashMap<Integer, Integer> visitedNums = new HashMap<>();
 
-            if (numberMap.containsKey(subtract)) {
-                return new int[] { i, numberMap.get(subtract) };
+        for(int i = 0; i < nums.length; i++){
+            int secondNum = target - nums[i];
+
+            if(visitedNums.containsKey(secondNum)){
+                return new int[]{visitedNums.get(secondNum), i};
             }
 
-            numberMap.put(nums[i], i);
+            visitedNums.put(nums[i], i);
         }
 
-        return new int[] {};
+        return new int[]{};
+
     }
 }
 // @lc code=end
