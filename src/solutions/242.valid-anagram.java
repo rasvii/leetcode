@@ -13,21 +13,20 @@ class Solution {
             return false;
         }
 
-        int[] alphabetCount = new int[26];
+        int[] alphabetCount = new int[126];
 
         for (char c : t.toCharArray()) {
-            alphabetCount[c - 'a']++;
+            alphabetCount[c]++;
         }
 
         for (char c : s.toCharArray()) {
-            if (alphabetCount[c - 'a'] == 0)
+            if (alphabetCount[c] == 0)
                 return false;
 
-            alphabetCount[c - 'a']--;
+            alphabetCount[c]--;
         }
 
         return true;
-
     }
 }
 // @lc code=end
