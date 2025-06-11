@@ -11,27 +11,28 @@ package solutions;
 import java.util.*;
 
 class Solution {
+    public List<String> generateParenthesis(int n) {
 
-    private void backtrack(int n, String curr, int left, int right, List<String> result) {
+        List<String> result = new ArrayList<>();
+        backtrack(n, "", 0, 0, result);
 
-        if (curr.length() == (n * 2)) {
-            result.add(curr);
+        return result;
+    }
+
+    private void backtrack(int n, String s, int left, int right, List<String> result) {
+
+        if (s.length() == n * 2) {
+            result.add(s);
             return;
         }
 
         if (left < n) {
-            backtrack(n, curr + "(", left + 1, right, result);
+            backtrack(n, s + "(", left + 1, right, result);
         }
 
         if (right < left) {
-            backtrack(n, curr + ")", left, right + 1, result);
+            backtrack(n, s + ")", left, right + 1, result);
         }
-    }
-
-    public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList<>();
-        backtrack(n, "", 0, 0, result);
-        return result;
     }
 }
 // @lc code=end
