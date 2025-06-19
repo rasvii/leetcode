@@ -26,38 +26,24 @@ class Solution {
                 }
             });
 
-    public void backtrack(List<String> result, int index, String curr, String digits) {
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits.length() == 0) {
+            return result;
+        }
+        backtrack(0, "", digits, result);
+        return result;
+    }
 
-        if (index == digits.length()) {
+    private void backtrack(int start, String curr, String digits, List<String> result) {
+        if (curr.length() == digits.length()) {
             result.add(curr);
             return;
         }
-
-        String letters = numVsLetterMap.get(digits.charAt(index));
+        String letters = numVsLetterMap.get(digits.charAt(start));
         for (char letter : letters.toCharArray()) {
-            backtrack(result, index + 1, curr + letter, digits);
+            backtrack(start + 1, curr + letter, digits, result);
         }
-
-    }
-
-    public List<String> letterCombinations(String digits) {
-
-        List<String> result = new ArrayList<>();
-        int length = digits.length();
-
-        if (length == 0) {
-            return result;
-        }
-
-        if (length == 1) {
-            String val = numVsLetterMap.get(digits.charAt(0));
-            return Arrays.asList(val.split(""));
-        }
-
-        backtrack(result, 0, "", digits);
-
-        return result;
-
     }
 }
 // @lc code=end
