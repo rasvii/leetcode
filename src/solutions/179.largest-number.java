@@ -1,3 +1,4 @@
+package solutions;
 /*
  * @lc app=leetcode id=179 lang=java
  *
@@ -11,12 +12,14 @@ import java.util.Comparator;
 
 class Solution {
     public String largestNumber(int[] nums) {
+
         String[] numsStr = new String[nums.length];
 
         for (int i = 0; i < nums.length; i++) {
             numsStr[i] = String.valueOf(nums[i]);
         }
 
+        // (5, 9) 59 < 95; return -1;
         Comparator<String> comparator = new Comparator<String>() {
             @Override
             public int compare(String a, String b) {
@@ -34,9 +37,8 @@ class Solution {
         }
 
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < numsStr.length; i++) {
-            sb.append(numsStr[i]);
+        for (String i : numsStr) {
+            sb.append(i);
         }
 
         return sb.toString();
