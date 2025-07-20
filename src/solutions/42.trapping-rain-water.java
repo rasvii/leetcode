@@ -44,5 +44,35 @@ class Solution {
         return totalWater;
 
     }
+
+    // Monotonic stack
+    /*
+     * public int trap(int[] height) {
+     * 
+     * int n = height.length;
+     * 
+     * if(n <= 2){
+     * return 0;
+     * }
+     * 
+     * Stack<Integer> stack = new Stack<>();
+     * int totalWater = 0;
+     * 
+     * for(int i = 0; i < height.length; i++){
+     * 
+     * while(!stack.isEmpty() && height[stack.peek()] < height[i]){
+     * int top = height[stack.pop()];
+     * if(stack.isEmpty()) break;
+     * int width = i - stack.peek() - 1;
+     * int high = Math.min(height[stack.peek()], height[i]) - top;
+     * totalWater += width * high;
+     * }
+     * 
+     * stack.push(i);
+     * }
+     * 
+     * return totalWater;
+     * }
+     */
 }
 // @lc code=end

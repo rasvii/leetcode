@@ -37,12 +37,10 @@ class LRUCache {
     }
 
     private HashMap<Integer, Node> cache = new HashMap<>();
-    private int size;
     private int capacity;
     private Node head = new Node(0, 0), tail = new Node(0, 0);
 
     public LRUCache(int capacity) {
-        this.size = 0;
         this.capacity = capacity;
         head.next = tail;
         tail.prev = head;

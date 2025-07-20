@@ -19,15 +19,19 @@ class Solution {
 
         for (String word : strs) {
 
-            char[] letters = word.toCharArray();
-            Arrays.sort(letters);
-            String sortedWord = new String(letters);
+            char[] ca = new char[26];
 
-            if (!result.containsKey(sortedWord)) {
-                result.put(sortedWord, new ArrayList<>());
+            for (char c : word.toCharArray()) {
+                ca[c - 'a']++;
             }
 
-            result.get(sortedWord).add(word);
+            String key = String.valueOf(ca);
+
+            if (!result.containsKey(key)) {
+                result.put(key, new ArrayList<>());
+            }
+
+            result.get(key).add(word);
 
         }
 
