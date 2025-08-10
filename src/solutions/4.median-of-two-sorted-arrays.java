@@ -48,5 +48,50 @@ class Solution {
         throw new IllegalArgumentException();
 
     }
+
+    // Brute force by me
+    /*
+     * public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+     * 
+     * int n = nums1.length, m = nums2.length;
+     * int[] merged = new int[n+m];
+     * 
+     * int first = 0; int second = 0;
+     * 
+     * int i;
+     * 
+     * for(i = 0; i < merged.length && first < n && second < m; i++){
+     * if(nums1[first] < nums2[second]){
+     * merged[i] = nums1[first];
+     * first++;
+     * }
+     * else{
+     * merged[i] = nums2[second];
+     * second++;
+     * }
+     * }
+     * 
+     * if(first < n){
+     * for(i = i; i < merged.length && first < n; i++){
+     * merged[i] = nums1[first];
+     * first++;
+     * }
+     * }
+     * else if(second < m){
+     * for(i = i; i < merged.length && second < m; i++){
+     * merged[i] = nums2[second];
+     * second++;
+     * }
+     * }
+     * 
+     * if(merged.length % 2 == 1){
+     * return (double) merged[merged.length/2];
+     * }
+     * else{
+     * int mid = merged.length/2;
+     * return (double) (merged[mid-1] + merged[mid])/2;
+     * }
+     * }
+     */
 }
 // @lc code=end
