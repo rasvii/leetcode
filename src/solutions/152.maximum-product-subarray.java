@@ -16,35 +16,38 @@ class Solution {
      */
     public int maxProduct(int[] nums) {
 
-        if (nums.length == 1) {
-            return nums[0];
-        }
+        int maxProduct = nums[0], max = nums[0], min = nums[0];
 
-        int maxProduct = Integer.MIN_VALUE;
-        int prod = 1;
+        for (int i = 1; i < nums.length; i++) {
+            int tmp = max;
 
-        for (int num : nums) {
-            prod = prod * num;
-            maxProduct = Math.max(prod, maxProduct);
+            max = Math.max(Math.max(max * nums[i], min * nums[i]), nums[i]);
+            min = Math.min(Math.min(tmp * nums[i], min * nums[i]), nums[i]);
 
-            if (prod == 0) {
-                prod = 1;
-            }
-        }
-
-        prod = 1;
-
-        for (int i = nums.length - 1; i >= 0; i--) {
-            prod = prod * nums[i];
-            maxProduct = Math.max(prod, maxProduct);
-
-            if (prod == 0) {
-                prod = 1;
+            if (max > maxProduct) {
+                maxProduct = max;
             }
         }
 
         return maxProduct;
     }
+
+    /*
+     * public int maxProduct(int[] nums) {
+     * 
+     * int maxProduct = nums[0], leftSum = 0, rightSum = 0;
+     * 
+     * for(int i = 0; i < nums.length; i++) {
+     * 
+     * leftSum = (leftSum == 0 ? 1 : leftSum) * nums[i];
+     * rightSum = (rightSum == 0 ? 1 : rightSum) * nums[nums.length - 1 - i];
+     * 
+     * maxProduct = Math.max(maxProduct, Math.max(leftSum, rightSum));
+     * }
+     * 
+     * return maxProduct;
+     * }
+     */
 }
 
 // Brute force

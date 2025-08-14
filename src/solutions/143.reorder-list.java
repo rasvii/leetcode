@@ -63,7 +63,6 @@ class Solution {
             prev.next = null;
         }
 
-        ListNode dummy = head;
         curr = head;
 
         while (!stack.isEmpty()) {
@@ -74,5 +73,56 @@ class Solution {
             curr = temp;
         }
     }
+
+    // Find middle, then reverse the second half, then merge the two lists.
+    /*
+     * public void reorderList(ListNode head) {
+     * 
+     * ListNode slow = head;
+     * ListNode fast = head.next;
+     * while(fast != null && fast.next != null) {
+     * slow = slow.next;
+     * fast = fast.next.next;
+     * }
+     * 
+     * ListNode head2 = slow.next;
+     * slow.next = null;
+     * head2 = reverse(head2);
+     * 
+     * head = merge(head, head2);
+     * }
+     * 
+     * private ListNode merge(ListNode head1, ListNode head2) {
+     * ListNode curr1 = head1;
+     * ListNode curr2 = head2;
+     * 
+     * while(curr1 != null && curr2 != null) {
+     * ListNode next1 = curr1.next;
+     * ListNode next2 = curr2.next;
+     * 
+     * curr1.next = curr2;
+     * curr2.next = next1;
+     * 
+     * curr1 = next1;
+     * curr2 = next2;
+     * }
+     * 
+     * return head1;
+     * }
+     * 
+     * private ListNode reverse(ListNode head) {
+     * ListNode curr = head;
+     * ListNode prev = null;
+     * 
+     * while(curr != null) {
+     * ListNode next = curr.next;
+     * curr.next = prev;
+     * prev = curr;
+     * curr = next;
+     * }
+     * 
+     * return prev;
+     * }
+     */
 }
 // @lc code=end

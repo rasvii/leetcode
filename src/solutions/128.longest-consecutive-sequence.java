@@ -6,7 +6,6 @@ package solutions;
  */
 
 import java.util.HashSet;
-import java.util.Hashtable;
 
 // @lc code=start
 class Solution {
@@ -41,5 +40,30 @@ class Solution {
         return ans;
 
     }
+
+    /*
+     * public int longestConsecutive(int[] nums) {
+     * 
+     * HashMap<Integer, Integer> map = new HashMap<>();
+     * int maxLength = 0;
+     * 
+     * for( int num : nums ) {
+     * 
+     * int left = map.getOrDefault(num - 1, 0);
+     * int right = map.getOrDefault(num + 1, 0);
+     * 
+     * int sum = left + right + 1;
+     * 
+     * map.put(num, sum);
+     * 
+     * maxLength = Math.max(maxLength, sum);
+     * 
+     * if(left > 0) map.put(num - left, sum);
+     * if(right > 0) map.put(num + right, sum);
+     * }
+     * 
+     * return maxLength;
+     * }
+     */
 }
 // @lc code=end
