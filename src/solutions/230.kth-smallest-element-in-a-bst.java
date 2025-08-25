@@ -20,34 +20,61 @@
  * }
  * }
  */
+
 class Solution {
-
-    private int count = 0;
-
     public int kthSmallest(TreeNode root, int k) {
-        TreeNode result = helper(root, k);
-        return result != null ? result.val : 0;
-    }
+        TreeNode curr = root;
 
-    private TreeNode helper(TreeNode node, int k) {
+        Stack<TreeNode> stack = new Stack<>();
 
-        if (node == null) {
-            return null;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+
+            curr = stack.pop();
+
+            if (k == 1)
+                break;
+            k--;
+
+            curr = curr.right;
         }
 
-        TreeNode left = helper(node.left, k);
-
-        if (left != null) {
-            return left;
-        }
-
-        count++;
-
-        if (count == k) {
-            return node;
-        }
-
-        return helper(node.right, k);
+        return curr.val;
     }
 }
+/*
+ * class Solution {
+ * 
+ * private int count = 0;
+ * 
+ * public int kthSmallest(TreeNode root, int k) {
+ * TreeNode result = helper(root, k);
+ * return result != null ? result.val : 0;
+ * }
+ * 
+ * private TreeNode helper(TreeNode node, int k) {
+ * 
+ * if (node == null) {
+ * return null;
+ * }
+ * 
+ * TreeNode left = helper(node.left, k);
+ * 
+ * if (left != null) {
+ * return left;
+ * }
+ * 
+ * count++;
+ * 
+ * if (count == k) {
+ * return node;
+ * }
+ * 
+ * return helper(node.right, k);
+ * }
+ * }
+ */
 // @lc code=end

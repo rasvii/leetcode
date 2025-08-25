@@ -27,41 +27,82 @@ import java.util.Queue;
  * }
  * }
  */
+
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
 
         List<List<Integer>> result = new ArrayList<>();
 
-        if (root == null) {
+        if (root == null)
             return result;
-        }
 
-        Queue<TreeNode> nodes = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> children = new LinkedList<>();
+        queue.offer(root);
 
-        nodes.add(root);
+        while (!queue.isEmpty() || !children.isEmpty()) {
 
-        while (!nodes.isEmpty()) {
-            List<Integer> levelNodes = new ArrayList<>();
-
-            int n = nodes.size();
-
-            for (int i = 0; i < n; i++) {
-                TreeNode node = nodes.poll();
-                levelNodes.add(node.val);
-
-                if (node.left != null) {
-                    nodes.add(node.left);
-                }
-                if (node.right != null) {
-                    nodes.add(node.right);
+            if (queue.isEmpty()) {
+                while (!children.isEmpty()) {
+                    queue.offer(children.poll());
                 }
             }
 
-            result.add(levelNodes);
+            List<Integer> tmp = new ArrayList<>(queue.size());
+
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.poll();
+                tmp.add(node.val);
+                if (node.left != null)
+                    children.offer(node.left);
+                if (node.right != null)
+                    children.offer(node.right);
+            }
+
+            result.add(tmp);
         }
 
         return result;
 
     }
 }
+/*
+ * class Solution {
+ * public List<List<Integer>> levelOrder(TreeNode root) {
+ * 
+ * List<List<Integer>> result = new ArrayList<>();
+ * 
+ * if (root == null) {
+ * return result;
+ * }
+ * 
+ * Queue<TreeNode> nodes = new LinkedList<>();
+ * 
+ * nodes.add(root);
+ * 
+ * while (!nodes.isEmpty()) {
+ * List<Integer> levelNodes = new ArrayList<>();
+ * 
+ * int n = nodes.size();
+ * 
+ * for (int i = 0; i < n; i++) {
+ * TreeNode node = nodes.poll();
+ * levelNodes.add(node.val);
+ * 
+ * if (node.left != null) {
+ * nodes.add(node.left);
+ * }
+ * if (node.right != null) {
+ * nodes.add(node.right);
+ * }
+ * }
+ * 
+ * result.add(levelNodes);
+ * }
+ * 
+ * return result;
+ * 
+ * }
+ * }
+ */
 // @lc code=end
