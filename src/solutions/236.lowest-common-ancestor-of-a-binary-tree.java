@@ -18,21 +18,23 @@ package solutions;
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 
-        if (root == null || root == p || root == q) {
+        if (root == null)
             return root;
+
+        TreeNode cur = root;
+        int min = Math.min(p.val, q.val), max = Math.max(p.val, q.val);
+
+        while (cur != null) {
+            if (cur.val > max) {
+                cur = cur.left;
+            } else if (cur.val < min) {
+                cur = cur.right;
+            } else {
+                return cur;
+            }
         }
 
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-
-        if (left == null) {
-            return right;
-        } else if (right == null) {
-            return left;
-        } else {
-            return root;
-        }
-
+        return null;
     }
 }
 // @lc code=end
