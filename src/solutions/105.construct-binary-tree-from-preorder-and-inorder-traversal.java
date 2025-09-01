@@ -24,28 +24,32 @@ import java.util.HashMap;
  * }
  * }
  */
+
 class Solution {
-
-    HashMap<Integer, Integer> inorderMap = new HashMap<>();
-
     public TreeNode buildTree(int[] preorder, int[] inorder) {
 
-        for (int i = 0; i < inorder.length; i++) {
-            inorderMap.put(inorder[i], i);
-        }
-        return helper(0, 0, inorder.length - 1, preorder);
+        return helper(0, preorder.length - 1, 0, inorder.length - 1, preorder, inorder);
+
     }
 
-    private TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder) {
-        if (preStart > preorder.length - 1 || inStart > inEnd) {
+    public TreeNode helper(int preStart, int preEnd, int inStart, int inEnd,
+            int[] preorder, int[] inorder) {
+
+        if (preStart > preEnd || inStart > inEnd)
             return null;
-        }
 
         TreeNode root = new TreeNode(preorder[preStart]);
-        int index = inorderMap.get(root.val);
 
-        root.left = helper(preStart + 1, inStart, index - 1, preorder);
-        root.right = helper(preStart + index - inStart + 1, index + 1, inEnd, preorder);
+        int inRoot = inStart;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == root.val) {
+                inRoot = i;
+                break;
+            }
+        }
+
+        root.left = helper(preStart + 1, preEnd + inRoot - inStart, inStart, inRoot - 1, preorder, inorder);
+        root.right = helper(preStart + inRoot - inStart + 1, preEnd, inRoot + 1, inEnd, preorder, inorder);
 
         return root;
     }
