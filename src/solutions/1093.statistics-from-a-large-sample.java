@@ -9,62 +9,56 @@ package solutions;
 class Solution {
     public double[] sampleStats(int[] count) {
 
-        int min = Integer.MAX_VALUE, max = 0;
-        double mean, median = 0, mode = 0;
-        double sum = 0;
+        double min = Integer.MAX_VALUE, max = -1;
+        double total = 0;
         int counter = 0;
-        int freq = 0;
+        double[] mode = { 0, 0 };
 
         for (int i = 0; i < count.length; i++) {
+
             if (count[i] != 0) {
-                min = Math.min(min, i);
-                max = Math.max(max, i);
+                if (min == Integer.MAX_VALUE)
+                    min = i;
+                max = i;
                 counter += count[i];
-                sum = sum + ((long) count[i] * i);
 
-                if (count[i] > freq) {
-                    freq = count[i];
-                    mode = i;
+                total += (long) i * count[i];
+
+                if (count[i] > mode[1]) {
+                    mode[0] = i;
+                    mode[1] = count[i];
                 }
             }
         }
 
-        if (counter % 2 == 0) {
-            int sumCount = 0;
-            int mid1 = counter / 2;
-            int mid2 = mid1 + 1;
-            boolean firstFound = false;
+        double mean = total / counter;
 
-            for (int i = 0; i < count.length; i++) {
-                sumCount += count[i];
-                if (!firstFound && sumCount >= mid1) {
-                    firstFound = true;
-                    median = i;
-                }
+        // median
+        double median;
+        int mid1 = (counter + 1) / 2; // position of middle (odd) or first middle (even)
+        int mid2 = (counter % 2 == 0) ? (counter / 2 + 1) : mid1;
 
-                if (sumCount >= mid2) {
-                    median += i;
-                    break;
-                }
+        int running = 0;
+        int first = -1, second = -1;
+
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] == 0)
+                continue;
+            running += count[i];
+
+            if (first == -1 && running >= mid1) {
+                first = i;
             }
-
-            median = median / 2;
-        } else {
-            int sumCount = 0;
-            int mid = counter / 2 + 1;
-
-            for (int i = 0; i < count.length; i++) {
-                sumCount += count[i];
-                if (sumCount >= mid) {
-                    median = i;
-                    break;
-                }
+            if (running >= mid2) {
+                second = i;
+                break;
             }
         }
 
-        double[] result = { min, max, sum / counter, median, mode };
+        median = (first + second) / 2.0;
 
-        return result;
+        return new double[] { min, max, mean, median, mode[0] };
+
     }
 }
 // @lc code=end

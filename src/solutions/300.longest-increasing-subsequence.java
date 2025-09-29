@@ -27,4 +27,39 @@ class Solution {
         return maxLength;
     }
 }
+
+// binary search
+// class Solution {
+// public int lengthOfLIS(int[] nums) {
+// int[] list = new int[nums.length];
+
+// int len = 0;
+
+// for(int n : nums ) {
+// if(len == 0 || list[len-1] < n) {
+// list[len++] = n;
+// }
+// else {
+// list[binarySearch(list, n, len-1)] = n;
+// }
+// }
+
+// return len;
+// }
+
+// private int binarySearch(int[] list, int num, int listSize) {
+// int low = 0, high = listSize;
+
+// while (low < high) {
+// int mid = (low + high) / 2;
+// if (list[mid] < num) {
+// low = mid + 1;
+// } else {
+// high = mid;
+// }
+// }
+
+// return low;
+// }
+// }
 // @lc code=end
