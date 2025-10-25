@@ -12,6 +12,23 @@ import java.util.Queue;
 
 class Solution {
     public boolean canReach(int[] arr, int start) {
+        boolean[] visited = new boolean[arr.length];
+
+        return dfs(arr, start, visited);
+    }
+
+    private boolean dfs(int[] arr, int idx, boolean[] visited) {
+        if(idx < 0 || idx >= arr.length || visited[idx]) return false;
+
+        visited[idx] = true;
+        if(arr[idx] == 0) return true;
+
+        return dfs(arr, idx + arr[idx], visited) ||  dfs(arr, idx - arr[idx], visited);
+    }
+}
+
+/* class Solution {
+    public boolean canReach(int[] arr, int start) {
 
         Queue<Integer> q = new LinkedList<>();
         q.offer(start);
@@ -41,5 +58,5 @@ class Solution {
         return false;
 
     }
-}
+} */
 // @lc code=end
