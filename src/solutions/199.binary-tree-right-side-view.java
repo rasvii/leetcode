@@ -1,3 +1,4 @@
+package solutions;
 /*
  * @lc app=leetcode id=199 lang=java
  *
@@ -26,37 +27,48 @@ import java.util.*;
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-
-        if (root == null) {
-            return result;
-        }
-
-        Queue<TreeNode> nodes = new LinkedList<>();
-
-        nodes.add(root);
-
-        while (!nodes.isEmpty()) {
-
-            int n = nodes.size();
-
-            TreeNode node = null;
-
-            for (int i = 0; i < n; i++) {
-                node = nodes.poll();
-
-                if (node.left != null) {
-                    nodes.add(node.left);
-                }
-                if (node.right != null) {
-                    nodes.add(node.right);
-                }
-            }
-
-            result.add(node.val);
-        }
-
+        dfs(root, result, 0);
         return result;
+    }
 
+    private void dfs(TreeNode root, List<Integer> result, int level) {
+        if (root == null)
+            return;
+
+        if (level == result.size()) {
+            result.add(root.val);
+        }
+
+        dfs(root.right, result, level + 1);
+        dfs(root.left, result, level + 1);
     }
 }
+/*
+ * class Solution {
+ * public List<Integer> rightSideView(TreeNode root) {
+ * 
+ * List<Integer> result = new ArrayList<>();
+ * if (root == null)
+ * return result;
+ * Deque<TreeNode> q = new ArrayDeque<>();
+ * q.add(root);
+ * 
+ * while (!q.isEmpty()) {
+ * int size = q.size();
+ * result.add(q.peekLast().val);
+ * 
+ * while (size-- > 0) {
+ * TreeNode node = q.poll();
+ * 
+ * if (node.left != null)
+ * q.add(node.left);
+ * 
+ * if (node.right != null)
+ * q.add(node.right);
+ * }
+ * }
+ * return result;
+ * }
+ * }
+ */
 // @lc code=end
