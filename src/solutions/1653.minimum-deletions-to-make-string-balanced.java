@@ -19,8 +19,6 @@ class Solution {
         int bCount = 0;
         int result = n;
 
-        int a = 0, b = 0;
-
         for(int i = 0; i < n; i++) {
             if(s.charAt(i) == 'a') totalA--;
             result = Math.min(result, totalA + bCount);
