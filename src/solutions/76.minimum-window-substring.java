@@ -8,37 +8,39 @@ package solutions;
 // @lc code=start
 class Solution {
     public String minWindow(String s, String t) {
-        int[] map = new int[128];
 
-        for (char c : t.toCharArray()) {
-            map[c]++;
+        int[] count = new int[126];
+
+        for(char c : t.toCharArray()) {
+            count[c]++;
         }
 
-        int minLength = Integer.MAX_VALUE, left = 0, right = 0, counter = t.length(), minStart = 0;
+        int remaining = t.length(), left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE, resultleft = 0;
 
-        while (right < s.length()) {
-            char cRight = s.charAt(right);
-            if (map[cRight] > 0)
-                counter--;
-            map[cRight]--;
+        while(right < s.length()) {
+
+            char cr = s.charAt(right);
+            count[cr]--;
+
+            if(count[cr] >= 0) remaining--;
+
             right++;
 
-            while (counter == 0) {
-                if (minLength > (right - left)) {
-                    minLength = right - left;
-                    minStart = left;
+            while(remaining == 0) {
+                if(right - left < minLen) {
+                    resultleft = left;
+                    minLen = right - left;
                 }
 
-                char cLeft = s.charAt(left);
-                map[cLeft]++;
+                count[s.charAt(left)]++;
+                if(count[s.charAt(left)] > 0) remaining++;
 
-                if (map[cLeft] > 0)
-                    counter++;
                 left++;
             }
         }
 
-        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minLength + minStart);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(resultleft, minLen + resultleft);
     }
 }
 // @lc code=end

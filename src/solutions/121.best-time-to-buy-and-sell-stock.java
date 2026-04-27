@@ -9,18 +9,17 @@ package solutions;
 class Solution {
     public int maxProfit(int[] prices) {
 
-        int leastSoFar = Integer.MAX_VALUE;
-        int currProfit = 0;
-        int maxProfit = 0;
+        int result = 0, minSoFar = Integer.MAX_VALUE;
 
-        for(int i : prices){
-            leastSoFar = Math.min(i, leastSoFar);
-            currProfit = i - leastSoFar;
-            maxProfit = Math.max(currProfit, maxProfit);
+        for(int n: prices) {
+            if(n < minSoFar) {
+                minSoFar = n;
+            }
+
+            result = Math.max(result, n - minSoFar);
         }
 
-        return maxProfit;
-
+        return result;
     }
 }
 // @lc code=end
