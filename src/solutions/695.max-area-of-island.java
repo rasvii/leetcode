@@ -7,40 +7,32 @@ package solutions;
 
 // @lc code=start
 class Solution {
-
     public int maxAreaOfIsland(int[][] grid) {
-
         int maxArea = 0;
-        int m = grid.length, n = grid[0].length;
-        boolean[][] visited = new boolean[m][n];
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1 && !visited[i][j]) {
-                    int res = dfs(grid, i, j, visited);
-                    maxArea = Math.max(maxArea, res);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    int area = dfs(grid, i, j);
+                    maxArea = Math.max(maxArea, area);
                 }
             }
         }
 
         return maxArea;
-
     }
 
-    private int dfs(int[][] grid, int i, int j, boolean[][] visited) {
-        if (i == -1 || j == -1 || i == grid.length || j == grid[0].length)
+    private int dfs(int[][] grid, int i, int j) {
+        if (i == -1 || i == grid.length || j == -1 || j == grid[0].length || grid[i][j] == 0) {
             return 0;
-        if (grid[i][j] == 0 || visited[i][j])
-            return 0;
+        }
 
-        visited[i][j] = true;
+        grid[i][j] = 0;
 
-        int result = 1 + dfs(grid, i + 1, j, visited) +
-                dfs(grid, i - 1, j, visited) +
-                dfs(grid, i, j + 1, visited) +
-                dfs(grid, i, j - 1, visited);
-
-        return result;
+        return 1 + dfs(grid, i + 1, j) +
+                dfs(grid, i - 1, j)
+                + dfs(grid, i, j - 1)
+                + dfs(grid, i, j + 1);
     }
 }
 // @lc code=end
